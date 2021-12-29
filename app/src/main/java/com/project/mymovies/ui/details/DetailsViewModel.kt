@@ -1,46 +1,24 @@
 package com.project.mymovies.ui.details
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.project.mymovies.model.MovieDetails
-import com.project.mymovies.model.MovieGenre
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.project.mymovies.utilites.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DetailsViewModel constructor(private val repository: DetailsRepo) : ViewModel() {
+@HiltViewModel
+class DetailsViewModel @Inject constructor(repo: DetailsRepo) : ViewModel(), LifecycleObserver {
 
-    val movieList = MutableLiveData<MovieDetails>()
-    val movieGenre = MutableLiveData<MovieGenre>()
-    val errorMessage = MutableLiveData<String>()
+    private val _id = MutableLiveData<Long>()
 
-    fun getMovieDetails(api_key: String, id: Long) {
-
-        val response = repository.getMovieDetails(api_key, id)
-        response.enqueue(object : Callback<MovieDetails> {
-            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-                movieList.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-                errorMessage.postValue(t.message)
-            }
-        })
-
-
+    private val _movie = _id.switchMap { id ->
+        repo.getMovieDetails(id).asLiveData()
     }
-    fun getMovieGenre(api_key: String)
-    {
 
-        val response2 = repository.getGenre(api_key)
-        response2.enqueue(object : Callback<MovieGenre> {
-            override fun onResponse(call: Call<MovieGenre>, response: Response<MovieGenre>) {
-                movieGenre.postValue(response.body())
-            }
+    val movie: LiveData<Resource<MovieDetails>> = _movie
 
-            override fun onFailure(call: Call<MovieGenre>, t: Throwable) {
-                errorMessage.postValue(t.message)
-            }
-        })
+    fun start(id: Long) {
+        _id.value = id
     }
+
 }

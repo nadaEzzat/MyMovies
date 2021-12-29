@@ -1,25 +1,21 @@
 package com.project.mymovies.model
 
-data class Movies (
-    val page: Long,
-    val results: List<Result>,
-    val totalPages: Long,
-    val totalResults: Long
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "MoviesResult")
+data class MoviesResult(
+    @PrimaryKey
+    val id: Long,
+    val genre_ids: List<Long>,
+    val original_title: String,
+    val poster_path: String,
+    val vote_average: Double
 )
 
-data class Result (
-    val adult: Boolean,
-    val backdropPath: String,
-    val genreIDS: List<Long>,
-    val id: Long,
-    val originalLanguage: String,
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val releaseDate: String,
-    val title: String,
-    val video: Boolean,
-    val voteAverage: Double,
-    val voteCount: Long
+
+data class Movies(
+    val page: Long,
+    val results: List<MoviesResult>
 )

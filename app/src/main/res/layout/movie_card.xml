@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="140dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="5dp">
 
     <RelativeLayout
@@ -12,11 +13,11 @@
 
         <ImageView
             android:id="@+id/movie_image"
-            android:scaleType="centerCrop"
             android:layout_width="140dp"
             android:layout_height="200dp"
-            android:src="@drawable/spider"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/spider" />
 
         <TextView
             android:id="@+id/movie_name"
@@ -25,33 +26,36 @@
             android:layout_below="@+id/movie_image"
             android:layout_alignParentStart="true"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="2dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="3dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Kimetsu no Yaba: Yuukaku-hen"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/rate_star"
-            android:layout_marginStart="2dp"
-            android:layout_alignParentStart="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/movie_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="3dp"
+
+            android:layout_marginStart="2dp"
             android:src="@drawable/ic_baseline_star_rate_24" />
 
         <TextView
-            android:id="@+id/rate"
+            android:id="@+id/movie_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/movie_name"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/rate_star"
             android:text="9.8"
+            android:layout_marginBottom="3dp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
